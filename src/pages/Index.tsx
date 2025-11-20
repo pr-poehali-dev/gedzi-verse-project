@@ -7,7 +7,6 @@ import { useToast } from '@/hooks/use-toast';
 export default function Index() {
   const { toast } = useToast();
   const [copiedIP, setCopiedIP] = useState(false);
-  const [onlinePlayers, setOnlinePlayers] = useState(20);
 
   useEffect(() => {
     const createSnowflake = () => {
@@ -29,16 +28,7 @@ export default function Index() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOnlinePlayers(prev => {
-        const change = Math.random() > 0.5 ? 1 : -1;
-        const newValue = prev + change;
-        return Math.max(15, Math.min(25, newValue));
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -97,6 +87,13 @@ export default function Index() {
 
   const socials = [
     {
+      name: 'Discord',
+      description: 'Игровое комьюнити',
+      url: 'https://discord.gg/t4j96pQnur',
+      color: 'hover:border-indigo-500',
+      icon: 'MessageCircle',
+    },
+    {
       name: 'Twitch',
       description: 'Прямые трансляции',
       url: 'https://www.twitch.tv/gedzimate',
@@ -144,19 +141,15 @@ export default function Index() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
           
           <div className="relative z-10 text-center space-y-8 animate-slide-up max-w-5xl">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-card/50 backdrop-blur-sm border border-primary/30 rounded-full text-sm animate-pulse-winter">
-              <Icon name="Activity" className="w-4 h-4 text-green-400" />
-              <span className="text-primary font-semibold">Статус: Онлайн</span>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-foreground font-mono">{onlinePlayers} игроков</span>
-            </div>
-
             <div className="inline-block mb-6">
-              <div className="text-5xl md:text-7xl font-bold winter-glow tracking-wider mb-2">
+              <div className="text-6xl md:text-8xl font-bold winter-glow tracking-wider mb-4">
                 GEDZIVERSE
               </div>
-              <div className="text-lg md:text-xl text-muted-foreground tracking-wide">
-                Приватный атмосферный сервер · Minecraft 1.21.8
+              <div className="text-xl md:text-2xl text-muted-foreground tracking-wide">
+                Приватный атмосферный сервер
+              </div>
+              <div className="text-base md:text-lg text-muted-foreground/70 tracking-wide mt-2">
+                Minecraft 1.21.8
               </div>
             </div>
 
@@ -330,7 +323,7 @@ export default function Index() {
               Связь с нами
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
               {socials.map((social, index) => (
                 <a
                   key={index}
